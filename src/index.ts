@@ -1,10 +1,12 @@
+import dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
-import  BodyParser  from 'body-parser';
 import mongoose from 'mongoose';
-import User from './models/userSchema';
+import {User} from './models/userSchema';
+dotenv.config();
 const app = express();
 app.use(express.json());
 
+const mongouri = process.env.MongoDB || "mongodb://localhost"
 app.get('/',(req:Request,res:Response)=>{
  res.send("hello from server")
 });
@@ -21,7 +23,7 @@ app.listen(5000, ()=>{
     console.log("https://localhost:3000/")
 });
 
-mongoose.connect("mongodb+srv://panchalgaurav487:773eud3qXVSSX7WI@mydatabase.tfuzwdo.mongodb.net/Node-Api?retryWrites=true&w=majority&appName=myDatabase")
+mongoose.connect(mongouri)
 .then(()=>{
     console.log("connected to database");
 })

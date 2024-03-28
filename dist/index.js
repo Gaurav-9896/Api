@@ -14,15 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
-const userSchema_1 = __importDefault(require("./models/userSchema"));
+const userSchema_1 = require("./models/userSchema");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+const hello = "helloo";
 app.get('/', (req, res) => {
     res.send("hello from server");
 });
 app.post('/User', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield userSchema_1.default.create(req.body);
+        yield userSchema_1.User.create(req.body);
     }
     catch (err) {
         res.status(500).json({ message: err });

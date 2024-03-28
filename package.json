@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     
-    "dev": "nodemon ./dist/index.js"
+    "dev": "tsc -w src/index.ts && nodemon ./dist/index.js"
   },
   "author": "",
   "license": "ISC",

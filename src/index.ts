@@ -1,12 +1,12 @@
 import dotenv from 'dotenv';
-import express, { Request, Response } from 'express';
-import mongoose from 'mongoose';
+import express,{Request,Response} from 'express'
 import {User} from './models/userSchema';
+import {connectDB} from './db';
 dotenv.config();
 const app = express();
 app.use(express.json());
 
-const mongouri = process.env.MongoDB || "mongodb://localhost"
+
 app.get('/',(req:Request,res:Response)=>{
  res.send("hello from server")
 });
@@ -17,16 +17,17 @@ app.post('/User',async(req:Request,res:Response)=>{
     } catch (err:any)
     {
         res.status(500).json({message:err})
+        console.log("This is a post method");
     }
 })
-app.listen(5000, ()=>{
-    console.log("https://localhost:3000/")
-});
+// app.listen(5000, ()=>{
+//     console.log("server stated on https://localhost:5000/")
+// });
 
-mongoose.connect(mongouri)
-.then(()=>{
-    console.log("connected to database");
+connectDB().then(()=>
+    app.listen(5000, ()=>{
+        console.log("server stated on https://localhost:5000/")
+    })
+).catch((error) =>{
+    console.log("Mongodb connection failed",error)
 })
-.catch(() =>{
-    console.log("connection failed")
-});
